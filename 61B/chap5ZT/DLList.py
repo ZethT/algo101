@@ -12,17 +12,27 @@ class DLList:
         self.size = 0
     def addLast(self, value):
         newNode = Node(value)
+        newNode.prev = self.sentinel.prev
+        newNode.next = self.sentinel
+        self.sentinel.prev.next = newNode
+        self.sentinel.prev = newNode
+
+    ''''My version
+
+       def addLast(self, value):
+        newNode = Node(value)
         newNode.prev = self.sentinel.prev # point newNode.prev to tail
         if (self.size() == 0):
             self.sentinel.next = newNode # point head to newNode if it is the first node
         newNode.next = self.sentinel.next # point newNode.next to head
         self.sentinel.prev.next = newNode
         self.sentinel.prev = newNode
-
+    
+    '''
     def removeLast(self):
         tail = self.sentinel.prev   
         self.sentinel.prev = tail.prev # update new tail
-        self.sentinel.prev.next = self.sentinel.next # move new tail'next to the head
+        self.sentinel.prev.next = self.sentinel # move new tail'next to the head
         self.size -= 1
     def size(self):
         return self.size
